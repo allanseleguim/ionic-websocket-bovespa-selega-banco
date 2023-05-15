@@ -1,0 +1,7 @@
+{
+  "name": "websocket-bovespa-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

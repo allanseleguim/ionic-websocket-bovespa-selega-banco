@@ -1,0 +1,79 @@
+<ion-header class="ion-padding">
+  <ion-toolbar>
+    <div class="logo">
+      <img src="../../assets/logo.svg" alt="Logo Selebanco" width="300px">
+    </div>
+    <ion-breadcrumbs>
+
+      <ion-breadcrumb (click)="presentAlert()">Home</ion-breadcrumb>
+      <ion-breadcrumb>Busca valor ação</ion-breadcrumb>
+    </ion-breadcrumbs>
+
+    <ion-title>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-button (click)="getStockDetails()" type="button-block" name="search" fill="outline">Buscar dados</ion-button>
+    <ion-button (click)="clearSearch()" type="button-block" name="clear" fill="outline">Limpar busca</ion-button>
+  </ion-row>
+
+  <ion-row>
+
+    <h2>Insira a sigla da empresa desejada</h2>
+    <input type="text" (input)="handleInputChange($event)" class="form-control" [(ngModel)]="symbolStock"
+      [ngbTypeahead]="search" [resultFormatter]="formatResult" [inputFormatter]="formatInput" class="p2" />
+  </ion-row>
+
+  <ion-row>
+    <ion-item  class="ion-no-padding ion-no-margin" slot="">
+      <ion-button slot="start" color="light"> data </ion-button>
+      <ion-label>abertura</ion-label>
+      <ion-label>max.</ion-label>
+      <ion-label>fech.</ion-label>
+      <!-- <ion-label>{{ data.volume }}</ion-label> -->
+      <!-- <ion-label>{{ data.adjustedClose }}</ion-label> -->
+      <ion-label>divid.</ion-label>
+      <ion-button slot="end"> coef.</ion-button>
+    </ion-item>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-item *ngFor="let data of filteredData" class="ion-no-padding ion-no-margin" slot="">
+      <ion-button slot="start" color="light">{{ data.date }} </ion-button>
+      <ion-label>{{ data.open }}</ion-label>
+      <ion-label>{{ data.high }}</ion-label>
+      <ion-label>{{ data.close }}</ion-label>
+      <!-- <ion-label>{{ data.volume }}</ion-label> -->
+      <!-- <ion-label>{{ data.adjustedClose }}</ion-label> -->
+      <ion-label>{{ data.dividendAmount }}</ion-label>
+      <ion-button slot="end"> {{ data.splitCoefficient }} </ion-button>
+    </ion-item>
+  </ion-row>
+</ion-content>
+
+<ion-row>
+  <ion-col>
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Dúvidas?</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Digite o campo abaixo alguma sigla tipo "AAC" que representa Ares
+          Acquisition Corporation,
+          para então ver os dados da mesma.
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-col>
+</ion-row>
+
+<ion-footer class="ion-padding">
+  <ion-toolbar>
+    <ion-title>Allan Seleguim 2023</ion-title>
+  </ion-toolbar>
+</ion-footer>
