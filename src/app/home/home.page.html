@@ -1,3 +1,5 @@
+<section class="home-main tbar">
+
 <ion-header class="ion-padding">
   <ion-toolbar>
     <div class="logo">
@@ -16,43 +18,37 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-row>
+  <ion-row class="ion-justify-content-center">
     <ion-button (click)="getStockDetails()" type="button-block" name="search" fill="outline">Buscar dados</ion-button>
     <ion-button (click)="clearSearch()" type="button-block" name="clear" fill="outline">Limpar busca</ion-button>
   </ion-row>
 
-  <ion-row>
+  <ion-row class="ion-justify-content-center">
 
     <h2>Insira a sigla da empresa desejada</h2>
-    <input type="text" (input)="handleInputChange($event)" class="form-control" [(ngModel)]="symbolStock"
-      [ngbTypeahead]="search" [resultFormatter]="formatResult" [inputFormatter]="formatInput" class="p2" />
+    <input type="text" (input)="handleInputChange($event)" class="form-control p2" [(ngModel)]="symbolStock"
+      [ngbTypeahead]="search" [resultFormatter]="formatResult" [inputFormatter]="formatInput" />
   </ion-row>
 
-  <ion-row>
-    <ion-item  class="ion-no-padding ion-no-margin" slot="">
-      <ion-button slot="start" color="light"> data </ion-button>
-      <ion-label>abertura</ion-label>
-      <ion-label>max.</ion-label>
-      <ion-label>fech.</ion-label>
-      <!-- <ion-label>{{ data.volume }}</ion-label> -->
-      <!-- <ion-label>{{ data.adjustedClose }}</ion-label> -->
-      <ion-label>divid.</ion-label>
-      <ion-button slot="end"> coef.</ion-button>
-    </ion-item>
-  </ion-row>
+  <ion-row class="ion-justify-content-center result-cards">
+    <ion-col>
+   
+  
+
+      <ion-card *ngFor="let data of filteredData">
+        <ion-card-header>
+          <ion-card-title> <ion-button slot="start" color="light">{{ data.date }} </ion-button></ion-card-title>
+          <ion-card-subtitle><strong>Dt. abertura: </strong> {{ data.open }}</ion-card-subtitle>
+          <ion-card-subtitle>Dt. Máxima: {{ data.high }} </ion-card-subtitle>
+          <ion-card-subtitle>Dt. fechamento: {{ data.close}}</ion-card-subtitle>
+          <ion-card-subtitle>Quantidade Dividendo: {{ data.dividendAmount }}</ion-card-subtitle>
+          <ion-card-subtitle>Coeficiente de Div:   <ion-button slot="end"> {{ data.splitCoefficient }} </ion-button> </ion-card-subtitle>
+        </ion-card-header>
+      
+      </ion-card>
 
 
-  <ion-row>
-    <ion-item *ngFor="let data of filteredData" class="ion-no-padding ion-no-margin" slot="">
-      <ion-button slot="start" color="light">{{ data.date }} </ion-button>
-      <ion-label>{{ data.open }}</ion-label>
-      <ion-label>{{ data.high }}</ion-label>
-      <ion-label>{{ data.close }}</ion-label>
-      <!-- <ion-label>{{ data.volume }}</ion-label> -->
-      <!-- <ion-label>{{ data.adjustedClose }}</ion-label> -->
-      <ion-label>{{ data.dividendAmount }}</ion-label>
-      <ion-button slot="end"> {{ data.splitCoefficient }} </ion-button>
-    </ion-item>
+    </ion-col>
   </ion-row>
 </ion-content>
 
@@ -61,6 +57,7 @@
     <ion-accordion-group>
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
+        
           <ion-label>Dúvidas?</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">Digite o campo abaixo alguma sigla tipo "AAC" que representa Ares
@@ -77,3 +74,4 @@
     <ion-title>Allan Seleguim 2023</ion-title>
   </ion-toolbar>
 </ion-footer>
+</section>

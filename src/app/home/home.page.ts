@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts/highstock';
 import { webSocket } from 'rxjs/webSocket';
-import { AlphaVantageService } from '../alpha-vantage.service';
+import { AlphaVantageService } from '../services/alpha-vantage.service';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { FinnHubService } from './finn-hub.service';
+import { FinnHubService } from '../services/finn-hub.service';
 import { Observable } from 'rxjs';
 import { InputLiveUpdateDirective } from '../directives/input-live-update.directive';
 import { AlertController } from '@ionic/angular';
@@ -17,7 +17,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
   @ViewChild('chartContainer', { static: false }) chartContainer: any;
-
+  
   symbolStock: string = '';
   stockDetails: any;
   rawData: any;
@@ -26,12 +26,22 @@ export class HomePage {
   filteredData: any[] = [];
   resultSwapper: any = '';
   updatedSymbol: string = '';
-  
+  isDarkTheme = false;
 
   constructor(private alphaVantageService: AlphaVantageService, 
     private http: HttpClient, 
     private finnHubService: FinnHubService, 
     private alertController: AlertController) {}
+
+    toggleTheme() {
+      this.isDarkTheme = !this.isDarkTheme;
+  
+      if (this.isDarkTheme) {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+    }
 
   handleInputChange(event: any) {
     this.updatedSymbol = event.target.value;
@@ -123,6 +133,8 @@ async presentAlert() {
 
   await alert.present();
 }
+
+
  
 
  
